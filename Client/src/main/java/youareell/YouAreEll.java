@@ -1,6 +1,7 @@
 package youareell;
 
 import controllers.*;
+import org.json.simple.JSONArray;
 
 import java.io.IOException;
 
@@ -13,8 +14,11 @@ public class YouAreEll {
     }
 
     public static void main(String[] args) throws IOException { // TODO - remove throws exception
-        ServerController serverController = ServerController.shared(); // TODO - remove these 2 lines (this and below)
-        serverController.idGet();
+        // ServerController serverController = ServerController.shared(); // TODO - remove these 2 lines (this and below)
+        // JSONArray ids = serverController.idGet();
+        MessageController messageController = MessageController.shared(); // TODO - delete
+        System.out.println(messageController.messagesSeen); // TODO - delete
+        // System.out.println(messageController.intermittent); // TODO - delete
 
 //        // hmm: is this Dependency Injection? // TODO - fix
 //        YouAreEll urlhandler = new YouAreEll(

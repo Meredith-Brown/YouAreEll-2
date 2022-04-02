@@ -25,11 +25,10 @@ public class ServerController<JsonString> {
         return svr;
     }
 
-    public JsonString idGet() {
+    public JSONArray idGet() {
         BufferedReader reader;
-        String line;
-        StringBuffer response = new StringBuffer();
         JSONParser jsonParser = new JSONParser();
+        JSONArray ids = null;
         try {
             URL url = new URL("http://zipcode.rocks:8085/ids");
             connection = (HttpURLConnection) url.openConnection();
@@ -37,32 +36,19 @@ public class ServerController<JsonString> {
             connection.setConnectTimeout(15000);
             connection.setReadTimeout(15000);
             int status = connection.getResponseCode();
-            System.out.println(status); // TODO - remove
             if (status > 299) {
                 reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 Object obj = jsonParser.parse(reader);
-                JSONArray ids = (JSONArray) obj;
+                ids = (JSONArray) obj;
                 System.out.println(ids);
-//                line = reader.readLine();
-//                while(line != null) {
-//                    response.append(line);
-//                }
                 reader.close();
             } else {
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                // loop // TODO ??? (and above)
                 Object obj = jsonParser.parse(reader);
-                JSONArray ids = (JSONArray) obj;
+                ids = (JSONArray) obj;
                 System.out.println(ids);
-                // line = reader.readLine();
-//                while (line != null) {
-//                    System.out.println(line); // TODO - remove
-//                    System.out.println("---------linebreak--------"); // TODO - remove
-//                    response.append(line);
-//            }
-            reader.close();
+                reader.close();
             }
-            System.out.println(response.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -72,8 +58,47 @@ public class ServerController<JsonString> {
         } finally {
             connection.disconnect();
         }
-        return (JsonString) response;
+        return ids;
         // url -> /ids/
+        // send the server a get with url
+        // return json from server
+    }
+
+    public JSONArray messageGet() {
+        BufferedReader reader;
+        JSONParser jsonParser = new JSONParser();
+        JSONArray messages = null;
+        try {
+            URL url = new URL("http://zipcode.rocks:8085/messages");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
+            int status = connection.getResponseCode();
+            if (status > 299) {
+                reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+                Object obj = jsonParser.parse(reader);
+                messages = (JSONArray) obj;
+                System.out.println(messages);
+                reader.close();
+            } else {
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                Object obj = jsonParser.parse(reader);
+                messages = (JSONArray) obj;
+                System.out.println(messages);
+                reader.close();
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            connection.disconnect();
+        }
+        return messages;
+        // url -> /messages/
         // send the server a get with url
         // return json from server
     }
