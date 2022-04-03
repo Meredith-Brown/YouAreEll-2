@@ -1,9 +1,11 @@
 package youareell;
 
 import controllers.*;
+import models.Message;
 import org.json.simple.JSONArray;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 public class YouAreEll {
 
@@ -13,12 +15,26 @@ public class YouAreEll {
         this.tt = t;
     }
 
-    public static void main(String[] args) throws IOException { // TODO - remove throws exception
+    public static void main(String[] args) throws IOException { // TODO - ?remove throws exception?
         // ServerController serverController = ServerController.shared(); // TODO - remove these 2 lines (this and below)
         // JSONArray ids = serverController.idGet();
         MessageController messageController = MessageController.shared(); // TODO - delete
         System.out.println(messageController.messagesSeen); // TODO - delete
-        // System.out.println(messageController.intermittent); // TODO - delete
+        Iterator<Message> i = messageController.messagesSeen.iterator(); // TODO - delete
+        while (i.hasNext()) { // TODO - delete
+            System.out.println(i.next().getTimestamp()); // TODO - delete
+        }
+        System.out.println("------------------");
+        for (int j = 0; j < messageController.getMessages().size(); j++) {
+            System.out.println(messageController.getMessages().get(j).getTimestamp());
+        }
+        // messageController.getMessages(); // TODO - delete
+
+
+
+
+
+
 
 //        // hmm: is this Dependency Injection? // TODO - fix
 //        YouAreEll urlhandler = new YouAreEll(

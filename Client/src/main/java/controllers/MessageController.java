@@ -1,7 +1,9 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 import models.Id;
 import models.Message;
@@ -12,36 +14,22 @@ public class MessageController {
 
     public HashSet<Message> messagesSeen = new HashSet<>(); // TODO - change back to private
     // why a HashSet??
-    public HashSet<Object> messObject = new HashSet<>(); // TODO - delete
-    public ArrayList<String> intermittent = new ArrayList<>(); // TODO - delete
 
     private MessageController() {
         ServerController serverController = ServerController.shared();
         JSONArray messagesJSON = serverController.messageGet();
-//        Message[] messages = (Message[]) messagesJSON.toArray(new Message[0]);
-//        for (int i = 0; i < messagesJSON.size(); i++) {
-//            messagesSeen.add(messages[i]);
-//        }
         for (int i = 0; i < messagesJSON.size(); i++) {
             Object object = messagesJSON.get(i);
             String string = object.toString();
             String[] messageList = string.split(",");
             String toID = messageList[0].substring(8);
-            intermittent.add(toID);
             String sequence = messageList[1].substring(11);
-            intermittent.add(sequence);
-            String message = messageList[2].substring(9);
-            intermittent.add(message);
+            String message = messageList[2].substring(10);
             String fromID = messageList[3].substring(9);
-            intermittent.add(fromID);
             String timestamp = messageList[4].substring(12);
-            intermittent.add(timestamp);
             Message messageObject = new Message(message, fromID, toID, timestamp, sequence);
             messagesSeen.add(messageObject);
         }
-        // convert object to message BEFORE adding to hashset
-        // to do so... figure out how to break up the info for each message into each variable required
-        // for a message
     }
 
     private static MessageController mesCon = new MessageController();
@@ -51,11 +39,27 @@ public class MessageController {
     }
 
     public ArrayList<Message> getMessages() {
-    // messages should return the last 20 messages, nicely formatted.
-        // initalize instan of servercontroller
-        // return arraylist
-        return null;
+        // messages should return the last 20 messages, nicely formatted.
+        Message[] array = messagesSeen.toArray(new Message[0]);
+        ArrayList<Message> messages = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            messages.add(array[i]);
+        }
+        ArrayList<Message> copy = (ArrayList<Message>) messages.stream().sorted(Comparator.
+                comparing(Message::getTimestamp)).collect(Collectors.toList());
+        ArrayList<Message> newestMessages = new ArrayList<>();
+        if (copy.size() > 20) {
+            for (int j = copy.size() - 1; j >= copy.size() - 21; j--) {
+                newestMessages.add(copy.get(j));
+            }
+        } else {
+            for (int j = copy.size() - 1; j == 0; j--) {
+                newestMessages.add(copy.get(j));
+            }
+        }
+        return newestMessages;
     }
+
     public ArrayList<Message> getMessagesForId(Id Id) {
     // messages your_github_id should return the last 20 messages sent to you.
         return null;
@@ -73,6 +77,22 @@ public class MessageController {
     // send your_github_id 'my string message' to some_friend_githubid should post a message to your
         // friend from you on the timeline.
         return null;
+    }
+
+    public int sort(String one, String two) {
+        int count = 0;
+        for (int j = 0; j < one.length(); j++) {
+            char ch1 = one.charAt(j);
+            int value1 = Character.getNumericValue(ch1);
+            char ch2 = two.charAt(j);
+            int value2 = Character.getNumericValue(ch2);
+            if (value1 > value2) {
+                return 1;
+            } else if (value1 < value2) {
+                return 2;
+            }
+        }
+        return count;
     }
  
 }

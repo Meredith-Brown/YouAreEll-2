@@ -40,13 +40,13 @@ public class ServerController<JsonString> {
                 reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 Object obj = jsonParser.parse(reader);
                 ids = (JSONArray) obj;
-                System.out.println(ids);
+                // System.out.println(ids); // TODO - uncomment out?
                 reader.close();
             } else {
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 Object obj = jsonParser.parse(reader);
                 ids = (JSONArray) obj;
-                System.out.println(ids);
+                // System.out.println(ids); // TODO - uncomment out?
                 reader.close();
             }
         } catch (MalformedURLException e) {
@@ -79,13 +79,13 @@ public class ServerController<JsonString> {
                 reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 Object obj = jsonParser.parse(reader);
                 messages = (JSONArray) obj;
-                System.out.println(messages);
+                // System.out.println(messages); // TODO - uncomment out?
                 reader.close();
             } else {
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 Object obj = jsonParser.parse(reader);
                 messages = (JSONArray) obj;
-                System.out.println(messages);
+                // System.out.println(messages); // TODO - uncomment out?
                 reader.close();
             }
         } catch (MalformedURLException e) {
