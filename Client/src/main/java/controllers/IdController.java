@@ -8,7 +8,6 @@ import models.Message;
 import org.json.simple.JSONArray;
 
 public class IdController {
-    public ArrayList<String> listOfUsers = new ArrayList<>(); // TODO - delete
     private HashMap<String, Id> allIds = new HashMap<>();
 
     private IdController() {
@@ -20,7 +19,6 @@ public class IdController {
             String string = object.toString();
             String[] idList = string.split(",");
             String gitHub = idList[0].substring(10);
-            // listOfUsers.add(user + "\n"); // TODO - delete
             String name = idList[1].substring(7);
             if (idList[2].length() >=15) {
                 user = idList[2].substring(10, idList[2].length() - 2);

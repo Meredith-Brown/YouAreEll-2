@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 
 public class MessageController {
 
-    public HashSet<Message> messagesSeen = new HashSet<>(); // TODO - change back to private
+    private HashSet<Message> messagesSeen = new HashSet<>();
     // why a HashSet??
 
     private MessageController() {
@@ -39,7 +39,7 @@ public class MessageController {
     }
 
     public ArrayList<Message> getMessages() {
-        // messages should return the last 20 messages, nicely formatted.
+        // messages should return the last 20 messages, nicely formatted
         Message[] array = messagesSeen.toArray(new Message[0]);
         ArrayList<Message> messages = new ArrayList<>();
         for (int i = 0; i < array.length; i++) {
@@ -62,14 +62,6 @@ public class MessageController {
 
     public ArrayList<Message> getMessagesForId(Id Id) {
     // messages your_github_id should return the last 20 messages sent to you.
-//        Message[] array = messagesSeen.toArray(new Message[0]);
-//        ArrayList<Message> messages = new ArrayList<>();
-//        for (int i = 0; i < array.length; i++) {
-//            String stringId = Id.getName();
-//            if (array[i].getToId().equals(stringId)) {
-//                messages.add(array[i]);
-//            }
-//        }
         Message[] arrayZero = messagesSeen.toArray(new Message[messagesSeen.size()]); // remove nulls
         ArrayList<Message> array = new ArrayList<>();
         int count = 0;
@@ -83,23 +75,11 @@ public class MessageController {
         }
         ArrayList<Message> messages = new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
-            String stringId = Id.getGithub(); // TODO - seems to be using github ID - FIX?
+            String stringId = Id.getGithub();
             if (array.get(i).getToId().equals(stringId)) {
                 messages.add(array.get(i));
-            } else {
-                System.out.println("Name: " + Id.getName()); // TODO - delete
-                System.out.println("UID: " + Id.getUid()); // TODO - delete
-                System.out.println("GitHub: " + Id.getGithub()); // TODO - delete
-                // System.out.println(array.get(i).getToId()); // TODO - delete
             }
         }
-//        ArrayList<Message> messages = new ArrayList<>();
-//        for (int i = 0; i < array.length; i++) {
-//            String stringId = Id.getName();
-//            if (array[i].getToId().equals(stringId)) {
-//                messages.add(array[i]);
-//            }
-//        }
         ArrayList<Message> copy = (ArrayList<Message>) messages.stream().sorted(Comparator.
                 comparing(Message::getTimestamp)).collect(Collectors.toList());
         ArrayList<Message> newestMessages = new ArrayList<>();
