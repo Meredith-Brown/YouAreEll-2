@@ -13,6 +13,8 @@ public class Id {
     @JsonProperty("github")
     private String github = "";
 
+    public Id () {}
+
     public Id (String name, String githubId) {
         this.name = name;
         github = githubId;
