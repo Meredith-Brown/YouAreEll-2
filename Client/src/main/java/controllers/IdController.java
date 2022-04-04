@@ -8,7 +8,7 @@ import models.Message;
 import org.json.simple.JSONArray;
 
 public class IdController {
-    private HashMap<String, Id> allIds = new HashMap<>();
+    public HashMap<String, Id> allIds = new HashMap<>(); // TODO - revert to private
 
     private IdController() {
         String user = "";
@@ -47,10 +47,11 @@ public class IdController {
     }
 
     public Id postId(Id id) {
+    // You register your name and github id by creating an ID JSON payload (see below) and POSTing it to
+    // the server.
         // create json from id
         // call server, get json result Or error
         // result json to Id obj
-
         return null;
     }
 

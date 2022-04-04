@@ -18,7 +18,13 @@ public class YouAreEll { // TODO - all tests
         this.tt = t;
     }
 
-    public static void main(String[] args) throws IOException { // TODO - ?remove throws exception?
+    public static void main(String[] args) throws IOException, InterruptedException { // TODO - ?remove throws exception?
+        IdController idController = IdController.shared();
+        MessageController messageController = MessageController.shared();
+        Message message = new Message("note to self", "Meredith-Brown");
+        messageController.postMessage(idController.allIds.get("a8cf70a2ef5c4e46b3c467884056b3008a044190"),
+                idController.allIds.get("a8cf70a2ef5c4e46b3c467884056b3008a044190"), message);
+        System.out.println(idController.allIds.get("a8cf70a2ef5c4e46b3c467884056b3008a044190").getGithub());
 
 
 

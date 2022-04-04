@@ -4,10 +4,10 @@ import junit.framework.TestCase;
 
 public class IdControllerTest extends TestCase {
 
-    public void testShared() {
+    public void testShared() { // TODO - remove?
     }
 
-    public void testGetter() {
+    public void testGetter() { // TODO - remove?
     }
 
     public void testGetIds() {
