@@ -1,5 +1,6 @@
 package controllers;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,17 +49,16 @@ public class IdController {
         return ids;
     }
 
-//    public Id postId(Id id) {
-//        id = new Id("testMer", "testMer");
-//        ServerController.shared().idPost(id);
-//    // You register your name and github id by creating an ID JSON payload (see below) and POSTing it to
-//    // the server.
-//        // create json from id
-//        // call server, get json result Or error
-//        // result json to Id obj
-//        return null;
-//    }
-//
+    public void postId(Id id) throws MalformedURLException {
+        id = new Id("testMer", "testMer");
+        ServerController.shared().idPost(id);
+    // You register your name and github id by creating an ID JSON payload (see below) and POSTing it to
+    // the server.
+        // create json from id
+        // call server, get json result Or error
+        // result json to Id obj
+    }
+
 //    public Id putId(Id id) { // TODO
 //        return null;
 //    }

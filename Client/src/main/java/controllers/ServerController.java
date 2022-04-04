@@ -1,6 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import models.Id;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -9,9 +11,12 @@ import org.json.simple.parser.ParseException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class ServerController<JsonString> {
     private String rootURL = "http://zipcode.rocks:8085";
@@ -103,16 +108,45 @@ public class ServerController<JsonString> {
         // return json from server
     }
 
-//    public JsonString idPost(JsonTypeInfo.Id) { // TODO - these 2 methods
-//        // url -> /ids/
-//        // create json from Id
-//        // request
-//        // reply
-//        // return json
-//    }
-//    public JsonString idPut(Id) {
-//        // url -> /ids/
-//    }
+    public JsonString idPost(Id id) throws MalformedURLException { // TODO - these 2 methods
+        StringBuilder response = null;
+        try {
+            URL url = new URL("http://zipcode.rocks:8085/ids");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setConnectTimeout(15000);
+            connection.setReadTimeout(15000);
+            connection.setRequestProperty("Id", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+            ObjectMapper objectMapper = new ObjectMapper();
+            String out = objectMapper.writeValueAsString(id);
+            OutputStream os = connection.getOutputStream();
+            byte[] input = out.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+            int code = connection.getResponseCode();
+            System.out.println(code);
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.
+                    getInputStream(), StandardCharsets.UTF_8))) {
+                response = new StringBuilder();
+                String responseLine = null;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                System.out.println(response);
+            }
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (JsonString) response;
+    }
+
+        public JsonString idPut(Id) {
+        // url -> /ids/
+    }
 }
 
 // ServerController.shared.doGet()
