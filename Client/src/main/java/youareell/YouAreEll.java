@@ -8,6 +8,7 @@ import views.IdTextView;
 import views.MessageTextView;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class YouAreEll { // TODO - all tests
@@ -33,14 +34,15 @@ public class YouAreEll { // TODO - all tests
         System.out.println(urlhandler.MakeURLCall("/post"));
     }
 
-    private String MakeURLCall(String s) {
+    private String MakeURLCall(String s) throws JsonProcessingException, MalformedURLException {
         if (s.equals("/ids")) {
             return get_ids();
         } else if (s.equals("/messages")) {
             return get_messages();
         } else if (s.equals("/post")) {
-            return post_Ids;
+            return post_Ids();
         }
+        return null;
     }
 
     public String get_ids() throws JsonProcessingException {
@@ -63,7 +65,7 @@ public class YouAreEll { // TODO - all tests
         return show;
     }
 
-    public String post_Ids() {
+    public String post_Ids() throws MalformedURLException {
         IdController idController = new IdController();
         idController.postId(new Id());
         return "New Id Created";

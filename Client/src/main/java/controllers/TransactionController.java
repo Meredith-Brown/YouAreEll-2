@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Id;
 import models.Message;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class TransactionController {
@@ -26,10 +27,10 @@ public class TransactionController {
         return messages;
     }
 
-    public String postId(String idtoRegister, String githubName) {
-        Id tid = new Id(idtoRegister, githubName);
-        tid = idCtrl.postId(tid);
-        return ("Id registered.");
-    }
+//    public String postId(String idtoRegister, String githubName) throws MalformedURLException {
+//        Id tid = new Id(idtoRegister, githubName);
+//        tid = idCtrl.postId(tid);
+//        return ("Id registered.");
+//    }
 }
 

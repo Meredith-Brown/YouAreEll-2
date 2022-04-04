@@ -47,6 +47,8 @@ public class Message implements Comparable {
         this.toId = "";
     }
 
+    public Message() {}
+
     @Override
     public String toString() {
         return "sequence: " + this.seqId + "\n" + "timestamp: " + this.timestamp + "\n" + "to: " +

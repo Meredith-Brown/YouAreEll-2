@@ -12,7 +12,7 @@ import models.Message;
 import org.json.simple.JSONArray;
 
 public class IdController {
-    private HashMap<String, Id> allIds = new HashMap<>();
+    public HashMap<String, Id> allIds = new HashMap<>(); // TODO - change to private and make getter
 
     Id myId;
 

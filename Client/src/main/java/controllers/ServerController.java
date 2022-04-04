@@ -108,7 +108,7 @@ public class ServerController<JsonString> {
         // return json from server
     }
 
-    public JsonString idPost(Id id) throws MalformedURLException { // TODO - these 2 methods
+    public JsonString idPost(Id id) {
         StringBuilder response = null;
         try {
             URL url = new URL("http://zipcode.rocks:8085/ids");
@@ -144,9 +144,9 @@ public class ServerController<JsonString> {
         return (JsonString) response;
     }
 
-        public JsonString idPut(Id) {
-        // url -> /ids/
-    }
+//        public JsonString idPut(Id) { // TODO
+//        // url -> /ids/
+//    }
 }
 
 // ServerController.shared.doGet()

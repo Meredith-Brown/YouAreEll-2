@@ -73,14 +73,8 @@ public class MessageController {
     // messages your_github_id should return the last 20 messages sent to you
         Message[] arrayZero = messagesSeen.toArray(new Message[messagesSeen.size()]); // remove nulls
         ArrayList<Message> array = new ArrayList<>();
-        int count = 0;
         for (Message m : arrayZero) {
-            if (m.getToId().equals(null)) { // TODO - do I still need this?
-
-            } else {
-                array.add(m);
-                count++;
-            }
+            array.add(m);
         }
         ArrayList<Message> messages = new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
@@ -97,7 +91,7 @@ public class MessageController {
                 newestMessages.add(copy.get(j));
             }
         } else {
-            for (int j = copy.size() - 1; j == 0; j--) {
+            for (int j = copy.size() - 1; j >= 0; j--) {
                 newestMessages.add(copy.get(j));
             }
         }
